@@ -24,6 +24,11 @@ SECRET_KEY = 'django-insecure-xc*c1@*2oy&&1nva!)j4l65hujm%ho&o57&yc)r$$br3-udlyl
 DEBUG = True
 ALLOWED_HOSTS = []
 
+APPEND_SLASH = True  
+
+LOGIN_REDIRECT_URL = "recipe_list"  
+LOGOUT_REDIRECT_URL = "login"
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,7 +56,7 @@ ROOT_URLCONF = 'recipebook.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
