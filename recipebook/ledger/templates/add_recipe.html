@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Add Recipe{% endblock %}
+
+{% block content %}
+<h1>Add Recipe</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <h2>Ingredients</h2>
+    <div id="ingredients">
+        <div class="ingredient">
+            <select name="ingredient" required>
+                <option value="">Select Ingredient</option>
+                {% for ingredient in ingredients %}
+                <option value="{{ ingredient.id }}">{{ ingredient.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="quantity" placeholder="Quantity" required>
+        </div>
+    </div>
+    <button type="button" onclick="addIngredient()">Add Another Ingredient</button>
+
+    <button type="submit">Save Recipe</button>
+</form>
+
+<a href="{% url 'recipe_list' %}">Cancel</a>
+
+<script>
+    function addIngredient() {
+        const container = document.getElementById('ingredients');
+        const newIngredient = container.firstElementChild.cloneNode(true);
+        newIngredient.querySelectorAll('input, select').forEach(el => el.value = '');
+        container.appendChild(newIngredient);
+    }
+</script>
+{% endblock %}

@@ -1,15 +1,24 @@
-{% extends "base.html" %}
+<!-- Create ledger/templates/recipe_detail.html -->
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ recipe.name }}</h2>
-<p>Author: {{ recipe.author.username }}</p>
+<h1>{{ recipe.name }}</h1>
+
+<h2>Images</h2>
+{% for image in images %}
+    <img src="{{ image.image.url }}" alt="{{ image.description }}" width="200">
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <a href="{% url 'add_recipe_image' recipe.id %}">Add Image</a>
+{% endif %}
+
+<h2>Ingredients</h2>
 <ul>
-    {% for recipe_ingredient in ingredients %} 
-        <li>
-            {{ recipe_ingredient.ingredient.name }} - 
-            {{ recipe_ingredient.quantity }}
-        </li>
+    {% for ingredient in ingredients %}
+    <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
     {% endfor %}
 </ul>
-<a href="{% url 'recipe_list' %}">Back to Recipes</a>
+
+<a href="{% url 'recipe_list' %}">Back to list</a>
 {% endblock %}
